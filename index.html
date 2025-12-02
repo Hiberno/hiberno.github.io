@@ -1,203 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hiberno's Games Site Hub</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Courier New", monospace;
-      color: #00ffcc;
-      background: linear-gradient(#0a001a, #25003e, #56008a, #25003e, #0a001a);
-      background-size: 100% 300%;
-      animation: bgMove 12s ease infinite;
-      position: relative;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hiberno's Games Site Hub</title>
 
-    @keyframes bgMove {
-      0% { background-position: 0% 0%; }
-      50% { background-position: 0% 100%; }
-      100% { background-position: 0% 0%; }
-    }
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Courier New", monospace;
+    color: #00ffcc;
+    background: linear-gradient(#0a001a, #25003e, #56008a, #25003e, #0a001a);
+    background-size: 100% 300%;
+    animation: bgMove 12s ease infinite;
+    overflow: hidden;
+  }
 
-    /* CRT Scanline Overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.15) 0px,
-        rgba(0, 0, 0, 0.15) 2px,
-        rgba(0, 0, 0, 0.1) 2px,
-        rgba(0, 0, 0, 0.1) 4px
-      );
-      z-index: 10;
-    }
+  @keyframes bgMove {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+  }
 
-    h1 {
-      margin-top: 40px;
-      font-size: 48px;
-      text-shadow: 0 0 8px #ff00aa, 0 0 16px #ff00aa;
-      color: #ff66dd;
-      text-align: center;
-    }
+  /* CRT Scanlines */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15) 0px,
+      rgba(0, 0, 0, 0.15) 2px,
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
+    z-index: 10;
+  }
 
-    .container {
-      margin-top: 40px;
-      width: 90%;
-      max-width: 900px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
-      position: relative;
-      z-index: 5;
-    }
+  h1 {
+    margin-top: 40px;
+    font-size: 48px;
+    text-shadow: 0 0 8px #ff00aa;
+    color: #ff66dd;
+    text-align: center;
+  }
 
-    .card {
-      border: 2px solid #ff66dd;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(3px);
-      box-shadow: 0 0 10px #ff0099;
-    }
+  .container {
+    margin: 40px auto;
+    width: 90%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    z-index: 5;
+    position: relative;
+  }
 
-    .card:hover {
-      background: rgba(50, 0, 70, 0.6);
-      transform: scale(1.07);
-      box-shadow: 0 0 20px #ff33cc;
-    }
+  .card {
+    border: 2px solid #ff66dd;
+    padding: 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 10px #ff0099;
+    backdrop-filter: blur(3px);
+  }
 
-    a {
-      color: #ff99ee;
-      font-size: 20px;
-      text-decoration: none;
-      font-weight: bold;
-      text-shadow: 0 0 6px #ff33cc;
-    }
-  </style>
+  .card:hover {
+    background: rgba(50, 0, 70, 0.6);
+    transform: scale(1.07);
+    box-shadow: 0 0 20px #ff33cc;
+  }
+
+  a {
+    color: #ff99ee;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  /* ---------------------- */
+  /* RETRO TERMINAL MENU    */
+  /* ---------------------- */
+  #terminalMenu {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    max-width: 90%;
+    background: black;
+    border: 3px solid #00ffcc;
+    box-shadow: 0 0 20px #00ffaa;
+    padding: 20px;
+    z-index: 99999;
+    display: none;
+    animation: flicker 0.15s infinite alternate;
+  }
+
+  @keyframes flicker {
+    from { opacity: 0.97; }
+    to   { opacity: 1; }
+  }
+
+  #terminalMenu h2 {
+    color: #00ffcc;
+    text-shadow: 0 0 8px #00ffee;
+    margin-bottom: 10px;
+    font-size: 26px;
+  }
+
+  .menu-option {
+    font-size: 20px;
+    padding: 5px 0;
+    color: #00ffaa;
+  }
+
+  .selected {
+    background: #00ffaa;
+    color: black;
+    padding-left: 10px;
+  }
+
+</style>
 </head>
+
 <body>
-  <h1>HIBERNO'S GAMES SITE HUB</h1>
 
-  <div class="container">
-    <div class="card">
-      <a href="https://hiberno.github.io/Emulatrix/" target="_blank">Emulatrix</a>
-    </div>
+<h1>HIBERNO'S GAMES SITE HUB</h1>
 
-    <div class="card">
-      <a href="https://hiberno.github.io/cbf-failsafe/" target="_blank">CBF Failsafe</a>
-    </div>
+<div class="container">
+  <div class="card"><a href="https://hiberno.github.io/Emulatrix/" target="_blank">Emulatrix</a></div>
+  <div class="card"><a href="https://hiberno.github.io/cbf-failsafe/" target="_blank">CBF Failsafe</a></div>
+  <div class="card"><a href="https://hiberno.github.io/gamehub/" target="_blank">Gamehub</a></div>
+  <div class="card"><a href="https://hiberno.github.io/Hibernos-Calculus-Tutor/" target="_blank">Calculus Tutor</a></div>
+</div>
 
-    <div class="card">
-      <a href="https://hiberno.github.io/gamehub/" target="_blank">Gamehub</a>
-    </div>
+<!-- RETRO TERMINAL MENU -->
+<div id="terminalMenu">
+  <h2>== Hiberno Terminal Menu ==</h2>
 
-    <div class="card">
-      <a href="https://hiberno.github.io/Hibernos-Calculus-Tutor/" target="_blank">Calculus Tutor</a>
-    </div>
-  </div>
-  <!-- CRT Boot Screen -->
-  <div id="bootScreen">
-    <div id="macFrame">
-      <div id="macTitle">Hiberno System // Macintosh IIx</div>
-      <div id="logWindow">
-        <pre id="logText"></pre>
-      </div>
-    </div>
-  </div>
+  <div id="opt0" class="menu-option selected">Emulatrix</div>
+  <div id="opt1" class="menu-option">CBF Failsafe</div>
+  <div id="opt2" class="menu-option">Gamehub</div>
+  <div id="opt3" class="menu-option">Calculus Tutor</div>
 
-  <style>
-    /* --- Old Macintosh Boot Shell --- */
-    #bootScreen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #c6c6c6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      font-family: "Chicago", "Courier New", monospace;
-    }
+  <p style="color:#00ffcc;margin-top:15px;font-size:14px;">
+    ↑/↓ to navigate · ENTER to open · ESC to hide
+  </p>
+</div>
 
-    #macFrame {
-      background: #e1e1e1;
-      width: 80%;
-      max-width: 700px;
-      padding: 20px;
-      border: 4px solid black;
-      box-shadow: 0 0 0 8px #8c8c8c;
-    }
 
-    #macTitle {
-      background: black;
-      color: white;
-      padding: 10px;
-      font-size: 20px;
-      text-align: center;
-      margin-bottom: 10px;
-    }
+<script>
+/* -----------------------------
+   TERMINAL MENU KEYBOARD LOGIC
+--------------------------------*/
 
-    #logWindow {
-      background: white;
-      height: 300px;
-      overflow: hidden;
-      border: 2px solid black;
-      padding: 10px;
-    }
+const links = [
+  "https://hiberno.github.io/Emulatrix/",
+  "https://hiberno.github.io/cbf-failsafe/",
+  "https://hiberno.github.io/gamehub/",
+  "https://hiberno.github.io/Hibernos-Calculus-Tutor/"
+];
 
-    #logText {
-      font-size: 14px;
-      line-height: 18px;
-      color: black;
-      white-space: pre-line;
-    }
-  </style>
+let selected = 0;
+let menuOpen = true;
 
-  <script>
-    const logs = [
-      "Welcome to Macintosh...",
-      "Initializing Hiberno OS 1.3...",
-      "Checking RAM........  OK",
-      "Loading QuickDraw........  OK",
-      "Mounting Disk ‘NEON_DRIVE’........  OK",
-      "Starting Finder Extensions........  OK",
-      "Loading Retro Graphics Engine........  OK",
-      "Starting Neon Pipeline........  OK",
-      "Boot complete."
-    ];
+const menu = document.getElementById("terminalMenu");
+const options = document.getElementsByClassName("menu-option");
 
-    let index = 0;
+menu.style.display = "block"; // Show menu on load
 
-    function addNextLog() {
-      if (index < logs.length) {
-        document.getElementById("logText").innerText += logs[index] + "\n";
-        index++;
-        setTimeout(addNextLog, 600);
-      } else {
-        setTimeout(() => {
-          document.getElementById("bootScreen").style.transition = "opacity 1s";
-          document.getElementById("bootScreen").style.opacity = "0";
-          setTimeout(() => document.getElementById("bootScreen").remove(), 1200);
-        }, 1200);
-      }
-    }
+function updateSelection() {
+  for (let i = 0; i < options.length; i++) {
+    options[i].classList.toggle("selected", i === selected);
+  }
+}
 
-    setTimeout(addNextLog, 500);
-  </script>
+document.addEventListener("keydown", (e) => {
+  if (!menuOpen) return;
+
+  if (e.key === "ArrowDown") {
+    selected = (selected + 1) % options.length;
+    updateSelection();
+  }
+
+  if (e.key === "ArrowUp") {
+    selected = (selected - 1 + options.length) % options.length;
+    updateSelection();
+  }
+
+  if (e.key === "Enter") {
+    window.open(links[selected], "_blank");
+  }
+
+  if (e.key === "Escape") {
+    menuOpen = false;
+    menu.style.display = "none";
+  }
+});
+</script>
 
 </body>
 </html>
